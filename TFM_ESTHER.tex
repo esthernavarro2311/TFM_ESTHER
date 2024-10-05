@@ -1,0 +1,233 @@
+\documentclass[12pt,a4paper]{report}
+%\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
+\usepackage{longtable}
+
+\usepackage{graphicx}
+\usepackage{tabularx} 
+\usepackage[left=2.75cm,right=2.6cm,top=3.5cm,bottom=3.5cm]{geometry}
+\usepackage{apacite}
+\usepackage{multirow}
+
+\usepackage{pifont} % This package provides the \ding command
+
+\usepackage[table]{xcolor}
+\definecolor{blanco}{HTML}{FFFFFF}
+\usepackage{tikz}
+\usepackage{csquotes}
+\newcommand{\xmark}{\ding{55}}
+
+\usepackage{titletoc}
+% Keywords command
+
+\providecommand{\keywords}[1]
+{
+  \small	
+  \textbf{\textit{Palabras clave:\hspace{0.3cm}}} #1
+}
+
+
+\usepackage{comment}
+
+
+
+
+\definecolor{naranja}{HTML}{E65113}
+\usepackage[shortlabels]{enumitem}
+\definecolor{slcolor}{HTML}{E65113}
+\newcommand{\headlinecolor}{\color{slcolor}}
+\usepackage{titlesec}
+\usepackage{float}
+\definecolor{gray75}{gray}{0.75}
+\newcommand{\hsp}{\hspace{-10pt}}
+
+
+%introducir json
+\usepackage{listings}
+\usepackage{adjustbox}  % Paquete para ajustar el tamaño
+\usepackage{changepage} 
+
+\usepackage{eurosym}
+
+\lstdefinelanguage{json}{
+  basicstyle=\ttfamily\footnotesize,
+  showstringspaces=false,
+  breaklines=true,           % Permitir líneas largas que se rompan
+  frame=single,              % Borde simple alrededor del código
+  backgroundcolor=\color{gray!10},  % Color de fondo
+  keywordstyle=\color{blue},
+  stringstyle=\color{red},
+  commentstyle=\color{green!50!black},
+  morestring=[b]",
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morekeywords={:}
+}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%------------------COMANDOS PARA EL TIPO DE LETRA---------------------------%
+\usepackage{fontspec}
+\usepackage[T1]{fontenc}
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\definecolor{OrangeVIU}{RGB}{230,81,19}
+
+\titleformat{\chapter}[hang]{\vspace{-3cm}\headlinecolor\Huge\bfseries}{\thechapter.\hsp}{20pt}{\Huge\bfseries}
+
+%\titleformat{\section}[hang]{\Large\bfseries}{}{20pt}{\Large\bfseries}
+
+%\titleformat{\subsection}[hang]{\normalsize\bfseries}{}{20pt}{\large\bfseries}
+%\titleformat{\subsubsection}[hang]{\normalsize\bfseries}{}{20pt}{\large\bfseries}
+
+\titleformat{\appendix}[hang]{\vspace{-3cm}\headlinecolor\Huge\bfseries}{\thechapter.\hsp}{20pt}{\Huge\bfseries}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%-------------------COMANDOS PARA TABLAS  E IMAGENES ---------------------%
+\usepackage{tikz}
+\usepackage{tabularx}
+\usepackage{array}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%-----------------COMANDOS PARA CABECERAS Y PIE DE PAGINA -----------------%
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+
+\fancypagestyle{plain}{%
+  \renewcommand{\headrulewidth}{0pt}
+\fancyhead{}
+\fancyfoot{}
+\fancyfoot[R]{{\scriptsize\thepage\ de \pageref{LastPage} | Desarrollo de una Plataforma Web para la Gestión y Venta de Artículos de Pesca}}
+\fancyhead[L]{\tikz[remember picture,overlay]\node[opacity=0.4] at (-3mm, 10mm){\includegraphics[scale=0.18]{./Images/image3.png}};}
+\fancyheadoffset{0pt}
+}
+
+\pagestyle{plain}
+
+
+
+
+
+\usepackage{caption}
+
+\captionsetup[table]{name=Tabla}
+
+
+\setcounter{secnumdepth}{3}
+
+
+
+
+%%%%%%-------------------+++++++++--INICIO DEL DOCUMENTO--+++++++++---------------------------%%%%%
+
+\begin{document}
+
+
+
+%------------------XXXX++++++ INICIO DE PORTADA  ++++++XXXXX-----------------%
+\begin{titlepage}
+
+\newgeometry{left=2.5cm, bottom=3cm, top=2cm, right=2.5cm}
+
+\tikz[remember picture,overlay] \node[opacity=1,inner sep=0pt] at (73.6mm, -124.25mm){\includegraphics{./Images/Picture_TitlePage.jpg}};
+
+{\fontfamily{phv}\selectfont
+\fontsize{22}{10.4}\fontseries{b}\selectfont
+\vspace{13cm}
+\textbf{Desarrollo de una Plataforma Web para la Gestión y Venta de Artículos de Pesca}
+
+\bigskip
+
+\fontsize{12}{12}\selectfont
+\fontseries{m}\selectfont
+\vspace{4.5cm}
+\centering
+\begin{tabularx}{1\textwidth} { 
+  || >{\raggedright}X 
+  || >{\centering}X 
+  || >{\raggedleft\arraybackslash}X || }
+ Titulación:\\Máster Universitario en Desarrollo de Aplicaciones y Servicios Web\\ 
+ & Alumno/a: Navarro Bravo, Esther\\DNI: 48272707P 
+ & Convocatoria: \\ 
+ Curso Académico\\ 2023-2024
+  & Director/a del TFT: Pérez Ibáñez, Rubén   
+  & SEGUNDA  \\
+\end{tabularx}
+ }
+\end{titlepage}
+%--------------------XXXX++++++ FIN DE PORTADA  ++++++XXXXX-----------------%
+\tableofcontents	
+\addcontentsline{toc}{chapter}{\listfigurename}
+\addcontentsline{toc}{chapter}{\listtablename}
+\renewcommand{\listtablename}{Índice de tablas}
+
+\listoffigures
+\listoftables
+
+\begin{abstract}
+\parindent=1em
+
+La gestión eficiente de un negocio dedicado a la venta de artículos de pesca implica enfrentar diversos desafíos, desde la administración del inventario hasta la facilitación de ventas en línea y la gestión de reservas de cebo. En este contexto, el presente Trabajo Final de Máster propone el desarrollo de una aplicación web integral que aborde las necesidades específicas de un negocio de artículos de pesca.
+
+\vspace{0.5cm}
+Este proyecto contempla la creación de una plataforma que incluirá dos partes principales: una orientada a los clientes y otra destinada a los administradores del negocio. En la parte orientada a los clientes, la aplicación permitirá realizar compras en línea de los productos disponibles y reservar cebo, proporcionando una experiencia de usuario intuitiva y fluida, con una navegación sencilla.
+\vspace{0.5cm}
+
+Por otro lado, la sección de administrador estará diseñada para gestionar de manera eficiente el inventario de productos, controlar las reservas de cebo y manejar otros aspectos clave del negocio, como la actualización de la información de los productos y la gestión de las ventas.
+
+\vspace{0.5cm}
+Se utilizarán tecnologías como Laravel para el Back-end y Angular para el Front-end, con el objetivo de garantizar tanto la seguridad como la usabilidad de la plataforma. En resumen, este proyecto se centra en desarrollar una aplicación web integral que satisfaga las necesidades específicas de un negocio de artículos de pesca, abarcando la gestión del inventario, las ventas en línea y las reservas de cebo, todo bajo un enfoque que priorice la facilidad de uso y la eficiencia en la administración del negocio.
+
+
+
+\vspace{0.5cm}
+
+\keywords{gestión de inventario, ventas en línea, reserva de cebo}
+\end{abstract}
+\newpage
+\section*{Agradecimientos}\label{sec:agradecimientos}
+Quiero expresar mi más sincero agradecimiento a mi tutor del Trabajo Final de Máster, Rubén Pérez Ibáñez, por su valiosa orientación y consejos durante el desarrollo de este proyecto. Su apoyo ha sido fundamental para alcanzar mis objetivos.
+
+\vspace{0.5cm}
+
+También quiero agradecer profundamente a mi familia y amigos por su incondicional apoyo, motivación y paciencia a lo largo de todo el curso. Su comprensión y aliento han sido cruciales para llevar a cabo esta etapa de mi formación.
+
+\vspace{0.5cm}
+
+Además, quiero expresar mi agradecimiento a La Botiga del Port, por confiar en mí para impulsar su negocio digital. Su apoyo y colaboración han sido fundamentales para el éxito de este proyecto.
+
+\vspace{0.5cm}
+
+A todos vosotros, muchas gracias. Sin vuestra ayuda y confianza, este logro no habría sido posible.
+
+\include{introduccion}
+\include{marcotec}
+\include{metodologia}
+\include{metodologia2}
+\include{resultados}
+\include{resultados1_0}
+\include{resultados1_1}
+\include{resultados2}
+\include{annexos}
+
+
+%\\include{metodologia}
+
+
+
+
+
+\renewcommand{\bibname}{Bibliografía}
+\bibliographystyle{apacite}
+%\bibliographystyle{alpha}
+\bibliography{biblio}
+
+
+
+\end{document}

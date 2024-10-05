@@ -1,0 +1,95 @@
+
+\chapter{Metodología}\label{cap:cap4}
+Para afrontar este Trabajo de Fin de Máster (TFM), se ha decidido adoptar una metodología ágil que se ajusta a las exigencias dinámicas del proyecto. Esta elección se sustenta en la necesidad de asegurar una ejecución eficiente, flexible y orientada a la obtención de resultados concretos.
+
+\vspace{0.5cm}
+
+La metodología ágil se caracteriza por su enfoque iterativo e incremental, lo que permite dividir el proyecto en etapas o iteraciones manejables. Cada iteración se centra en un conjunto específico de tareas y objetivos, facilitando así un progreso continuo y una rápida adaptación a los cambios del entorno. Asimismo, fomenta una estrecha colaboración con los interesados y la posibilidad de realizar ajustes según las necesidades emergentes.
+
+\vspace{0.5cm}
+
+Es bien sabido que este enfoque ágil es altamente efectivo en proyectos de desarrollo de software, como el presente, debido a su capacidad para mejorar la gestión del proyecto. En este tipo de iniciativas, la comunicación fluida, la capacidad de adaptación y la entrega incremental de funcionalidades son aspectos cruciales. Todos estos aspectos pueden ser alcanzados eficazmente mediante la implementación de una metodología ágil.
+
+\vspace{0.5cm}
+
+A continuación, se detallará la gestión del proyecto y las herramientas utilizadas para su ejecución efectiva.
+
+\section{Gestión del proyecto}\label{sec:apartado}
+
+Para gestionar eficazmente el proyecto, se han empleado herramientas alineadas con la metodología ágil Scrum \cite{schwaber2017}. A partir de los requisitos del proyecto, se ha elaborado un Product Backlog que incluye las Historias de Usuario \cite{cohn2004}, delineando así las necesidades específicas desde la perspectiva del cliente o usuario final. En lugar de detallar exhaustivamente especificaciones técnicas, las Historias de Usuario se centran en los objetivos y expectativas de los usuarios de la aplicación.
+
+\vspace{0.5cm}
+
+La planificación se ha estructurado en diferentes Sprints, cada uno con las tareas necesarias para avanzar hacia el objetivo final: la aplicación web. La conclusión exitosa de estos Sprints conducirá al resultado deseado.
+
+\vspace{0.5cm}
+
+En la sección \textcolor{naranja}{sección 4.1.1 - Historias de usuario}, se presenta en detalle esta hoja de ruta, que guiará la creación de las funcionalidades requeridas por los usuarios, abordando así las necesidades específicas del proyecto.
+
+
+\subsection{Historias de usuario}\label{subsec4.1.1}
+
+En base a los requisitos de la aplicación se han identificado las siguientes historias de usuario:
+
+
+
+\begin{table}[H]
+  \centering
+  \renewcommand{\arraystretch}{1.5}
+  \begin{tabular}{|p{0.3\textwidth}|p{0.3\textwidth}|p{0.3\textwidth}|}
+    \hline
+    \multicolumn{3}{|l|}{\cellcolor{OrangeVIU}\textcolor{white}{\textbf{(H1) Historia de usuario 1: Creación BBDD}}} \\
+    \hline
+    \multicolumn{3}{|p{\dimexpr0.9\linewidth+2\tabcolsep+2\arrayrulewidth}|}{{\textbf{\textcolor{naranja}{Descripción: }}}Crear una base de datos desde cero para almacenar datos esenciales del sistema.} \\
+    \hline
+    \multicolumn{3}{|p{\dimexpr0.9\linewidth+2\tabcolsep+2\arrayrulewidth}|}{{\textbf{\textcolor{naranja}{Validación: }} Se debe verificar que todas las tablas requeridas hayan sido creadas correctamente en la base de datos, asegurando que cada tabla contenga las columnas necesarias y cumpla con las restricciones de integridad definidas. }} \\
+    \hline
+    {\textbf{\textcolor{naranja}{Prioridad }}}  & {\textbf{\textcolor{naranja}{Estimación }}}  & {\textbf{\textcolor{naranja}{Dependencia }}}  \\
+    \hline
+    1 &  30h &  Ninguna \\
+    \hline
+  \end{tabular}
+  \caption{(H1) Historia de usuario 1 - Creación BBDD}
+  \label{table:H1}
+\end{table}
+
+
+    Esta historia de usuario representa una de las primeras tareas clave en el desarrollo del sistema, que es la creación de la base de datos (BBDD). El desarrollo se ha gestionado mediante un enfoque iterativo y basado en Scrum. La creación de la base de datos es un paso crucial en la arquitectura de la aplicación, ya que asegura que toda la información requerida por el sistema esté correctamente estructurada.
+
+    \vspace{0.5cm}
+    
+    La validación de esta tarea se llevará a cabo al finalizar el Sprint correspondiente, verificando la integridad de las tablas y asegurando que se cumplan los requisitos establecidos en las historias de usuario dependientes. Esta historia se considera de alta prioridad debido a su impacto en las demás funcionalidades del sistema.
+
+
+\begin{table}[H]
+  \centering
+  \renewcommand{\arraystretch}{1.5}
+  \begin{tabular}{|p{0.3\textwidth}|p{0.3\textwidth}|p{0.3\textwidth}|}
+    \hline
+    \multicolumn{3}{|l|}{\cellcolor{OrangeVIU}\textcolor{white}{\textbf{(H2) Historia de usuario 2: Introducir nuevo producto}}} \\
+    \hline
+    \multicolumn{3}{|p{\dimexpr0.9\linewidth+2\tabcolsep+2\arrayrulewidth}|}{{\textbf{\textcolor{naranja}{Descripción: }}}Permitir a los usuarios agregar un nuevo producto al sistema, proporcionando información detallada como nombre, descripción, precio y categoría.} \\
+    \hline
+    \multicolumn{3}{|p{\dimexpr0.9\linewidth+2\tabcolsep+2\arrayrulewidth}|}{{\textbf{\textcolor{naranja}{Validación: }} Verificar que el nuevo producto se haya añadido correctamente a la base de datos, con todos los campos necesarios completos y sin errores de duplicación. }} \\
+    \hline
+    {\textbf{\textcolor{naranja}{Prioridad }}}  & {\textbf{\textcolor{naranja}{Estimación }}}  & {\textbf{\textcolor{naranja}{Dependencia }}}  \\
+    \hline
+    1 &  10h &  1 \\
+    \hline
+  \end{tabular}
+  \caption{(H2) Historia de usuario 2 - Introducir nuevo producto}
+  \label{table:H2}
+\end{table}
+
+
+    Esta historia de usuario aborda la funcionalidad esencial para el administrador de la aplicación, permitiéndole gestionar el catálogo de productos en el sistema. El enfoque Scrum nos ha permitido dividir esta tarea en sub-actividades como el diseño de la interfaz de usuario, la conexión con la base de datos y la validación de datos.
+
+    \vspace{0.5cm}
+    
+    Durante el Sprint, se llevarán a cabo pruebas unitarias y de integración para garantizar que el sistema maneje correctamente la introducción de nuevos productos y que los datos se guarden de manera segura en la base de datos. Esta tarea es crítica para garantizar que el inventario se mantenga actualizado en todo momento, siendo una funcionalidad recurrente en futuras iteraciones.
+
+
+\vspace{0.5cm}
+\vspace{0.5cm}
+Después de presentar las primeras historias de usuario clave para el desarrollo del sistema, el resto de las historias de usuario, que detallan el resto de funcionalidades se encuentran recogidas en el \textcolor{naranja}{Anexo I: Historias de usuario}. Estas historias son igualmente importantes para la correcta implementación y funcionamiento de la plataforma, y abarcan aspectos como la gestión avanzada del inventario, la autenticación de usuarios y la reserva de productos. Para mayor detalle, se pueden consultar todas las tablas en el mencionado anexo.
+

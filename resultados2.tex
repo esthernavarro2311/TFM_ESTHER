@@ -1,0 +1,80 @@
+\section{Despliegue en entorno de producción}\label{sec:apartado}
+
+El despliegue de la aplicación fue un proceso fundamental que comenzó una vez que se completó el desarrollo y las pruebas exhaustivas en el entorno local. Para llevar a cabo este proceso, se optó por un servidor privado virtual (VPS), el cual se adquirió del proveedor \href{https://piensasolutions.com}{piensasolutions.com}, garantizando así el rendimiento necesario para alojar la aplicación.
+
+\vspace{0.5cm}
+
+Una vez obtenido el VPS, se eligió el sistema operativo AlmaLinux 9, que es una distribución de Linux de código abierto. Esta elección se basó en su estabilidad y soporte a largo plazo, lo que resulta esencial para un entorno de producción \cite{almalinux2021}. AlmaLinux también ofrece un rendimiento sólido y una compatibilidad completa con las aplicaciones desarrolladas en PHP y Laravel, asegurando que la infraestructura estuviera alineada con las necesidades de la aplicación.
+
+
+\vspace{0.5cm}
+
+El primer paso consistió en la instalación del servidor web Apache, que es esencial para servir aplicaciones web. Este proceso fue directo y se verificó su éxito accediendo a la dirección IP pública del VPS, donde se pudo observar la página de inicio de Apache, confirmando que el servidor estaba funcionando correctamente.
+
+\vspace{0.5cm}
+
+Posteriormente, se procedió a la instalación de PHP, ya que la aplicación se desarrolló utilizando el framework Laravel, el cual requiere esta tecnología. Durante esta etapa, se instalaron también las extensiones necesarias para asegurar que la aplicación pudiera operar de manera efectiva. Además, se implementó Composer, una herramienta clave para gestionar las dependencias de PHP. Esta herramienta permite instalar bibliotecas necesarias para Laravel y facilitar la gestión del código  \cite{composer2021}.
+Posteriormente, se procedió a la instalación de PHP, ya que la aplicación se desarrolló utilizando el framework Laravel, el cual requiere esta tecnología. Durante esta etapa, se instalaron también las extensiones necesarias para asegurar que la aplicación pudiera operar de manera efectiva. Además, se implementó Composer, una herramienta clave para gestionar las dependencias de PHP. Esta herramienta permite instalar bibliotecas necesarias para Laravel y facilitar la gestión del código  \cite{composer2021}.
+
+\vspace{0.5cm}
+
+Con el entorno básico configurado, se procedió a la instalación del sistema de gestión de bases de datos MySQL. Esta fase fue crucial, ya que la aplicación necesita una base de datos para almacenar y gestionar la información. Se creó una base de datos específica para la aplicación, junto con un usuario que tuviera los permisos necesarios para acceder y manipular esta base de datos.
+
+\vspace{0.5cm}
+
+Una vez que la base de datos estuvo lista, se configuró el dominio labotigadelport.com para que apuntara a la dirección IP del VPS. Este paso implicó acceder al panel de control del registrador del dominio y añadir un registro A que vinculara el dominio con la dirección IP del servidor, permitiendo así el acceso a la aplicación mediante el nombre de dominio.
+
+\vspace{0.5cm}
+
+Con el dominio correctamente configurado, se subieron todos los archivos de la aplicación Laravel al directorio raíz de Apache. Se utilizó SFTP para transferir los archivos de forma segura. Tras la transferencia, se instaló el conjunto de dependencias de Laravel, lo que permitió que la aplicación pudiera ejecutarse sin problemas en el nuevo entorno. A su vez, se preparó el frontend desarrollado en Angular. Se realizó la compilación de la aplicación Angular en modo producción y se subieron los archivos resultantes al servidor, asegurando que la interfaz de usuario se cargara de manera eficiente y estuviera totalmente integrada con el backend.
+
+\vspace{0.5cm}
+
+La seguridad de la aplicación fue otro aspecto prioritario, por lo que se adquirió un certificado SSL que se configuró adecuadamente. Con esta implementación, todas las conexiones a la aplicación se realizan de manera segura, lo que garantiza la protección de la información de los usuarios y brinda confianza en el manejo de datos sensibles.
+
+\vspace{0.5cm}
+
+Finalmente, tras completar todos los pasos de configuración y despliegue, se llevaron a cabo diversas pruebas para asegurar que la aplicación funcionara correctamente en el entorno de producción. Esto incluyó verificar la conexión a la base de datos, así como la correcta implementación del certificado SSL.
+
+\vspace{0.5cm}
+
+El resultado de todo este esfuerzo puede ser visualizado accediendo a \href{https://labotigadelport.com}{labotigadelport.com}, donde la aplicación está plenamente operativa y disponible para los usuarios.
+
+\section{Costes del proyecto}\label{sec:apartado}
+
+El desarrollo de este proyecto ha sido llevado a cabo íntegramente por una única persona, yo, lo que ha permitido tener un control total sobre cada aspecto del mismo. El proceso de desarrollo, desde la concepción de la idea inicial hasta la implementación final, ha requerido un total de 300 horas de trabajo.
+
+\vspace{0.5cm}
+
+Cada hora de trabajo tiene un coste asignado de 15\euro\, lo que se traduce en un coste total por horas trabajadas de:
+
+\[
+\text{Coste total por horas} = 300 \text{ horas} \times 15 \text{ \euro/hora} = 4500 \text{ \euro}
+\]
+
+Además de los costes asociados al tiempo de desarrollo, también se han considerado los gastos de infraestructura necesaria para el funcionamiento de la aplicación. Estos gastos son esenciales para asegurar que la aplicación esté disponible y funcionando correctamente en un entorno de producción.
+
+\begin{itemize}
+    \item \textbf{Servidor Privado Virtual (VPS)}: El coste del VPS es de 12\euro\ al año. Este coste es relativamente bajo y garantiza un rendimiento adecuado para alojar la aplicación, permitiendo un acceso constante y seguro para los usuarios.
+    
+    \item \textbf{Dominio}: El registro del dominio, que en este caso es labotigadelport.com, también tiene un coste de 12€ al año. Este gasto es crucial, ya que permite a los usuarios acceder a la aplicación a través de un nombre de dominio fácil de recordar, en lugar de tener que utilizar una dirección IP.
+\end{itemize}
+
+\vspace{0.5cm}
+
+Al sumar todos los costes, obtenemos el total del proyecto:
+
+\[
+\text{Coste total del proyecto} = \text{Coste por horas} + \text{Coste VPS} + \text{Coste Dominio}
+\]
+
+\[
+\text{Coste total del proyecto} = 4500 \text{ \euro} + 12 \text{ \euro} + 12 \text{ \euro} = 4524 \text{ \euro}
+\]
+
+Por lo tanto, el coste total del proyecto, sin incluir IVA, es de 4524\euro\. Este desglose no solo refleja el tiempo y esfuerzo invertido en el desarrollo de la aplicación, sino que también considera los gastos necesarios para su funcionamiento continuo y accesibilidad en la web.
+
+\vspace{0.5cm}
+
+En conclusión, el proyecto ha requerido un total de 300 horas de trabajo personal, con un coste total de 4500\euro\ por horas, más 12\euro\   anuales por el VPS y 12\euro\ anuales por el dominio. La suma total de estos gastos asciende a 4524\euro\, reflejando la inversión tanto en tiempo como en recursos necesarios para llevar a cabo este desarrollo.
+

@@ -1,0 +1,216 @@
+
+\chapter{Marco tecnológico}\label{cap:cap3}
+El Marco Tecnológico establecido para el desarrollo del presente Trabajo Final de Máster (TFM) se fundamenta en la selección cuidadosa de herramientas y tecnologías que garanticen un rendimiento óptimo y una experiencia de usuario satisfactoria en el producto final. Por ello, se ha realizado un análisis exhaustivo de las diferentes opciones disponibles para cada capa del desarrollo (front-end, back-end y base de datos) y se han seleccionado aquellas que mejor se ajustan a los requisitos del proyecto.
+
+\section{Base de datos: MySQL}\label{sec:sec3.1}
+
+MySQL es un sistema de gestión de bases de datos relacional (SGBDR) de código abierto y ampliamente utilizado en el desarrollo web. Ofrece un rendimiento sólido, confiabilidad y escalabilidad, lo que lo convierte en una opción ideal para aplicaciones de todo tipo y tamaño. MySQL es una opción popular para el desarrollo de aplicaciones web debido a su facilidad de uso, rendimiento y amplia gama de características. \cite{mysql, elmasri, relational_vs_nosql}.
+
+\vspace{0.5cm}
+
+\begin{itemize}
+    \item \textbf{Características principales de MySQL:}
+
+    \begin{itemize}
+    
+    \item \textbf{Soporte para ACID:} Garantiza la integridad, consistencia, aislamiento y durabilidad de los datos. Las propiedades ACID son esenciales para garantizar la fiabilidad de las bases de datos y la seguridad de los datos.
+
+    \item \textbf{Consultas SQL:} Permite manipular datos de manera eficiente mediante el lenguaje SQL. SQL es un lenguaje de consulta potente y versátil que permite realizar una amplia gama de operaciones sobre los datos.
+
+    \item \textbf{Escalabilidad:} Puede manejar grandes volúmenes de datos y tráfico de usuarios. MySQL es una base de datos altamente escalable que puede adaptarse a las necesidades de aplicaciones web de todos los tamaños.
+
+    \item \textbf{Seguridad:} Ofrece mecanismos de autenticación, autorización y cifrado de datos para proteger las bases de datos. La seguridad es un aspecto fundamental en el desarrollo de aplicaciones web, y MySQL ofrece una serie de características para proteger los datos de accesos no autorizados.
+    
+    \item \textbf{Amplia comunidad:} Cuenta con una gran comunidad de desarrolladores y una amplia gama de recursos disponibles. La gran comunidad de MySQL es un recurso valioso para los desarrolladores que necesitan ayuda o información.
+    \end{itemize}
+
+    \item \textbf{Beneficios de usar MySQL:}
+
+    \begin{itemize}
+
+    \item \textbf{Facilidad de uso:} MySQL es una base de datos relativamente fácil de aprender y usar, lo que la convierte en una buena opción para principiantes y desarrolladores con experiencia en otras tecnologías de bases de datos.
+    
+    \item \textbf{Rendimiento:} MySQL es una base de datos de alto rendimiento que puede manejar grandes volúmenes de datos y tráfico de usuarios.
+    
+    \item \textbf{Escalabilidad:} MySQL es una base de datos altamente escalable que puede adaptarse a las necesidades de aplicaciones web de todos los tamaños.
+    
+    \item \textbf{Seguridad:} MySQL ofrece una serie de características de seguridad para proteger los datos de accesos no autorizados.
+
+    \item \textbf{Amplia comunidad:} La gran comunidad de MySQL es un recurso valioso para los desarrolladores que necesitan ayuda o información.
+    
+    \end{itemize}
+
+    \item \textbf{Tabla comparativa con otras tecnologías de bases de datos:}
+
+    \begin{longtable}[h]{ p{0.3\textwidth} | p{0.2\textwidth} | p{0.2\textwidth} | p{0.2\textwidth} |}
+    \cline{2-4}
+    & \cellcolor{naranja}{\color{blanco}\textbf{MySQL}} & \cellcolor{naranja}{\color{blanco}\textbf{PostgreSQL}} & \cellcolor{naranja}{\color{blanco}\textbf{MongoDB}} \\ \hline
+    \endhead
+    \cellcolor{naranja}{\color{blanco}\textbf{Modelo de datos}} & Relacional & Relacional & No relacional \\ \hline
+    \cellcolor{naranja}{\color{blanco}\textbf{Curva de aprendizaje}} & Baja & Moderada & Baja \\ \hline
+    \cellcolor{naranja}{\color{blanco}\textbf{Comunidad}} & Grande y activa & Grande y activa & Grande y activa \\ \hline
+    \cellcolor{naranja}{\color{blanco}\textbf{Rendimiento}} & Alto & Alto & Escalable \\ \hline
+    \cellcolor{naranja}{\color{blanco}\textbf{Adecuado para}} & Aplicaciones web transaccionales & Aplicaciones web complejas con consultas complejas & Aplicaciones web NoSQL \\ \hline
+    
+    \caption{Tabla comparativa con otras tecnologías de base de datos}
+    \label{tab:otras-soluciones}
+    \end{longtable}
+
+    \item \textbf{Casos de uso de MySQL:}
+
+    MySQL es una opción popular para el desarrollo de una amplia gama de aplicaciones web, incluyendo:
+    
+    \begin{itemize}
+
+    \item \textbf{Tiendas online:} MySQL es una buena opción para almacenar datos de productos, pedidos y clientes.
+
+    \item \textbf{Aplicaciones web de redes sociales:} MySQL puede usarse para almacenar datos de perfiles de usuarios, publicaciones, mensajes y otros datos relacionados con las redes sociales.
+
+    \item \textbf{Aplicaciones web de blogs:} MySQL puede usarse para almacenar datos de entradas de blog, comentarios y otros datos relacionados con los blogs.
+
+    \item \textbf{Aplicaciones web de gestión de proyectos:} MySQL puede usarse para almacenar datos de proyectos, tareas, usuarios y otros datos relacionados con la gestión de proyectos.
+
+    \end{itemize}
+\end{itemize}
+\section{Back-end: Laravel}\label{sec:sec3.2}
+
+Laravel es un framework PHP de código abierto para el desarrollo web back-end. Proporciona una estructura robusta y elegante para crear aplicaciones web modernas y escalables. Laravel es conocido por su sintaxis elegante, su amplio conjunto de características y su gran comunidad de desarrolladores \cite{laravel, stauffer}.
+
+\vspace{0.5cm}
+
+\begin{itemize}
+    \item \textbf{Características principales de Laravel:}
+    \begin{itemize}
+
+    \item \textbf{Arquitectura MVC:} Laravel sigue el patrón de diseño MVC (Modelo-Vista-Controlador), separando la lógica de la aplicación en tres capas bien definidas. Esto promueve la separación de responsabilidades, facilita el desarrollo y mantenimiento del código y mejora la testabilidad.
+
+    \item \textbf{Ruteo Elocuente:} Laravel proporciona un sistema de ruteo flexible y fácil de usar que le permite definir fácilmente las rutas de su aplicación y asociarlas con controladores específicos.
+
+    \item \textbf{Eloquent ORM:} Laravel incluye un Object-Relational Mapper (ORM) llamado Eloquent que facilita la interacción con bases de datos relacionales. Eloquent le permite trabajar con objetos PHP en lugar de consultas SQL, lo que simplifica el desarrollo y reduce la cantidad de código necesario.
+
+    \item \textbf{Artisan:} Laravel incluye una herramienta de línea de comandos llamada Artisan que le permite realizar tareas comunes de administración de aplicaciones, como crear migraciones, sembrar bases de datos y ejecutar pruebas.
+
+    \item \textbf{Seguridad:} Laravel incluye una serie de características de seguridad integradas que ayudan a proteger su aplicación de ataques comunes, como ataques de inyección de SQL y ataques de sitios cruzados (XSS).
+
+    \item \textbf{Comunidades y recursos:} Laravel cuenta con una comunidad grande y activa de desarrolladores. Hay una gran cantidad de recursos disponibles, como documentación oficial, tutoriales, foros y paquetes de terceros
+    
+    \end{itemize}
+
+    \item \textbf{Beneficios de usar Laravel:}
+    \begin{itemize}
+
+    \item \textbf{Desarrollo rápido y escalable:} Laravel proporciona una estructura robusta y herramientas que facilitan el desarrollo de aplicaciones web complejas y escalables.
+    
+    \item \textbf{Código limpio y mantenible:} La sintaxis elegante de Laravel y su enfoque en la separación de responsabilidades promueven la creación de código limpio y fácil de mantener.
+
+    \item \textbf{Seguridad mejorada:} Las características de seguridad integradas de Laravel ayudan a proteger su aplicación de ataques comunes.
+
+    \item \textbf{Gran comunidad y recursos:} La gran comunidad de Laravel y la amplia gama de recursos disponibles facilitan encontrar ayuda y resolver problemas.
+
+    \end{itemize}
+
+     \item \textbf{Tabla comparativa con otras tecnologías back-end:}
+     
+    \begin{longtable}[h]{ p{0.3\textwidth} | p{0.2\textwidth} | p{0.2\textwidth} | p{0.2\textwidth} |}
+    \cline{2-4}
+    & \cellcolor{naranja}{\color{blanco}\textbf{Laravel}} & \cellcolor{naranja}{\color{blanco}\textbf{Django}} & \cellcolor{naranja}{\color{blanco}\textbf{Ruby on Rails}} \\ \hline
+    \endhead
+    \cellcolor{naranja}{\color{blanco}\textbf{Lenguaje de programación}} & PHP & Python & Ruby \\ \hline
+    \cellcolor{naranja}{\color{blanco}\textbf{Paradigma de programación}} & MVC & MVC & MVC \\ \hline
+    \cellcolor{naranja}{\color{blanco}\textbf{Estructura}} & Basada en rutas y controladores & Basada en vistas y URLconf & Basada en rutas y controladores \\ \hline
+    \cellcolor{naranja}{\color{blanco}\textbf{Curva de aprendizaje}} & Moderada & Moderada & Moderada \\ \hline
+    \cellcolor{naranja}{\color{blanco}\textbf{Comunidad}} & Grande y activa & Grande y activa & Grande y activa \\ \hline
+    \cellcolor{naranja}{\color{blanco}\textbf{Rendimiento}} & Alto & Alto & Alto \\ \hline
+    \cellcolor{naranja}{\color{blanco}\textbf{Adecuado para}} & Aplicaciones web complejas y escalables & Aplicaciones web complejas y escalables & Aplicaciones web complejas y escalables \\ \hline
+    
+    \caption{Tabla comparativa con otras tecnologías back-end}
+    \label{tab:otras-soluciones}
+    \end{longtable}
+    
+     \item \textbf{Casos de uso de Laravel:}
+
+    Laravel es una opción ideal para el desarrollo de una amplia variedad de aplicaciones web back-end, incluyendo:
+    
+     \begin{itemize}
+
+    \item \textbf{Aplicaciones web empresariales:} CRM, ERP, gestión de proyectos, etc.
+
+    \item \textbf{Aplicaciones web de comercio electrónico:} Tiendas online, plataformas de pago, etc.
+
+    \item \textbf{Aplicaciones web API:} API RESTful para proporcionar datos a aplicaciones móviles o front-end web.
+
+    \item \textbf{Aplicaciones web de una sola página (SPA):} Aplicaciones web que se cargan una sola vez y que navegan entre diferentes vistas sin necesidad de recargar la página.
+
+    \item \textbf{Aplicaciones web progresivas (PWA):} Aplicaciones web que combinan las características de las aplicaciones web tradicionales con las de las aplicaciones móviles.
+    
+    \end{itemize}
+\end{itemize}
+\section{Front-end: Angular}\label{sec:sec3.3}
+
+Angular es un framework de desarrollo web front-end de código abierto y mantenido por Google. Proporciona una estructura robusta y modular para construir aplicaciones web escalables y de alto rendimiento. Su arquitectura MVC facilita la organización del código y promueve la mantenibilidad a largo plazo \cite{angular, angular_development}.
+
+\vspace{0.5cm}
+
+\begin{itemize}
+    \item \textbf{Características principales de Angular:}
+
+    \begin{itemize}
+
+    \item \textbf{Arquitectura MVC:} Separa la aplicación en tres capas: modelo, vista y controlador, promoviendo la separación de responsabilidades y facilitando el desarrollo y mantenimiento del código.
+
+    \item \textbf{Encapsulamiento de componentes:} Permite crear componentes reutilizables y altamente personalizables, lo que facilita el desarrollo de interfaces complejas y la reutilización de código.
+
+    \item \textbf{Data binding:} Simplifica la sincronización entre los datos del modelo y la vista, proporcionando una experiencia de usuario fluida y reactiva. Esto significa que cualquier cambio en los datos del modelo se reflejará automáticamente en la interfaz de usuario, sin necesidad de escribir código adicional.
+
+    \item \textbf{Directivas:} Ofrecen funcionalidades predefinidas para manipular el DOM y mejorar la interacción con el usuario. Las directivas permiten extender la funcionalidad HTML y crear elementos personalizados.
+
+    \item \textbf{Herramientas de desarrollo:} Incluye un conjunto completo de herramientas para el desarrollo, testing y despliegue de aplicaciones Angular. Estas herramientas facilitan el trabajo de los desarrolladores y permiten crear aplicaciones de alta calidad.
+
+    \end{itemize}
+
+    \item \textbf{Beneficios de usar Angular:}
+
+    \begin{itemize}
+
+    \item \textbf{Desarrollo rápido y escalable:} Angular proporciona una estructura robusta y herramientas que facilitan el desarrollo de aplicaciones web complejas y escalables.
+
+    \item \textbf{Interfaces de usuario dinámicas y reactivas:} La arquitectura MVC y el data binding de Angular permiten crear interfaces de usuario dinámicas y reactivas que responden a los cambios en los datos de forma inmediata.
+
+    \item \textbf{Código reutilizable y mantenible:} El encapsulamiento de componentes y la separación de responsabilidades promueven la creación de código reutilizable y fácil de mantener.
+
+    \item \textbf{Gran comunidad y recursos disponibles:} Angular cuenta con una gran comunidad de desarrolladores y una amplia gama de recursos disponibles, lo que facilita encontrar ayuda y resolver problemas.
+
+     \end{itemize}
+
+     \item \textbf{Tabla comparativa con otras tecnologías front-end:}
+
+    \begin{longtable}[h]{ p{0.3\textwidth} | p{0.2\textwidth} | p{0.2\textwidth} | p{0.2\textwidth} |}
+    \cline{2-4}
+    & \cellcolor{naranja}{\color{blanco}\textbf{Angular}} & \cellcolor{naranja}{\color{blanco}\textbf{React}} & \cellcolor{naranja}{\color{blanco}\textbf{Vue.js}} \\ \hline
+    \endhead
+    \cellcolor{naranja}{\color{blanco}\textbf{Estructura}} & MVC & Componentes & Componentes \\ \hline
+    \cellcolor{naranja}{\color{blanco}\textbf{Curva de aprendizaje}} & Moderada & Moderada & Baja \\ \hline
+    \cellcolor{naranja}{\color{blanco}\textbf{Comunidad}} & Grande y activa & Grande y activa & Grande y activa \\ \hline
+    \cellcolor{naranja}{\color{blanco}\textbf{Rendimiento}} & Alto & Alto & Alto \\ \hline
+    \cellcolor{naranja}{\color{blanco}\textbf{Adecuado para}} & Aplicaciones web complejas y escalables & Aplicaciones web de una sola página y dinámicas & Aplicaciones web pequeñas y medianas \\ \hline
+    
+    \caption{Tabla comparativa con otras tecnologías front-end}
+    \label{tab:otras-soluciones}
+    \end{longtable}
+    
+     \item \textbf{Casos de uso de Angular:}
+    
+     Angular es una opción ideal para el desarrollo de aplicaciones web complejas y escalables que requieren interfaces de usuario dinámicas y reactivas. Algunos ejemplos de casos de uso de Angular incluyen:
+
+      \begin{itemize}
+
+    \item \textbf{Aplicaciones web empresariales:} CRM, ERP, gestión de proyectos, etc.
+
+    \item \textbf{Aplicaciones web de comercio electrónico:} Tiendas online, plataformas de pago, etc.
+
+    \item \textbf{Aplicaciones web de una sola página (SPA):} Aplicaciones web que se cargan una sola vez y que navegan entre diferentes vistas sin necesidad de recargar la página.
+
+    \item \textbf{Aplicaciones web progresivas (PWA):} Aplicaciones web que combinan las características de las aplicaciones web tradicionales con las de las aplicaciones móviles.
+
+    \end{itemize}
+\end{itemize}

@@ -1,0 +1,482 @@
+\section{APIs utilizadas}\label{sec:apartado}
+
+El desarrollo de la aplicación ha requerido la implementación de diversas APIs que permiten la comunicación entre el backend, desarrollado en Laravel, y el frontend, construido con Angular. Estas APIs son fundamentales para gestionar las operaciones de la aplicación, garantizando el correcto funcionamiento de la web y la gestión de la base de datos de manera segura y eficiente. A continuación, se describe en detalle el conjunto de APIs implementadas.
+
+\subsection{Login y registro de usuario}\label{subsec5.3.1}
+
+Para manejar las operaciones relacionadas con la creación y autenticación de usuarios, se han desarrollado cuatro APIs específicas. Estas APIs son fundamentales para asegurar que los usuarios puedan registrarse, iniciar sesión, y que los administradores puedan gestionar las cuentas de manera efectiva. A continuación, se presenta una descripción detallada de cada una de estas APIs.
+
+\begin{itemize}
+    \item \textbf{Obtener todos los usuarios:} Esta API permite obtener un listado completo de los usuarios registrados en la aplicación. Es utilizada principalmente por los administradores para supervisar y gestionar las cuentas de usuario. Al invocar este endpoint, se devuelve un JSON con la información básica de cada usuario, excluyendo datos sensibles como contraseñas. Este endpoint es clave para mantener una visión general del estado de la base de datos de usuarios.
+    
+    \item \textbf{Registro de usuario:} La API de registro es responsable de crear nuevas cuentas de usuario. Recibe datos como correo electrónico, contraseña, y otros detalles relevantes, los valida y, tras comprobar que el correo electrónico no esté en uso, encripta la contraseña y almacena la información en la base de datos. Si el registro es exitoso, la API responde con un mensaje de confirmación junto con los detalles del nuevo usuario, asegurando así un proceso de registro fluido y seguro.
+    
+    \item \textbf{Login de usuario:} Esta API gestiona la autenticación de los usuarios que intentan acceder a la aplicación. Tras recibir el correo electrónico y la contraseña, la API verifica las credenciales contra las almacenadas en la base de datos. Si la autenticación es correcta, se genera un token de sesión, que es devuelto al frontend para autenticar futuras solicitudes. En caso de error, la API proporciona un mensaje adecuado para notificar al usuario del problema.
+
+    \item \textbf{Eliminar usuario:} La API de eliminación de usuario permite a los administradores eliminar cuentas de la base de datos de manera permanente. Al ejecutarse correctamente, la API devuelve una confirmación de que el usuario ha sido eliminado, lo que ayuda a mantener la base de datos actualizada y libre de cuentas innecesarias.
+    
+\end{itemize}
+
+\subsection{Productos y pedidos}\label{subsec5.3.2}
+
+En la gestión de productos y pedidos dentro de la aplicación, se han implementado diversas APIs que permiten tanto a los usuarios como a los administradores interactuar de manera eficiente con el catálogo. Estas APIs son fundamentales para garantizar que la información de los productos esté siempre disponible y sea manejada de manera segura y eficiente. La estructura de estas APIs facilita tanto la experiencia de compra para los usuarios finales como la gestión y administración de los productos por parte del equipo responsable de la tienda. A continuación, se presentan las APIs categorizadas según su uso para el cliente y para el administrador.
+
+\subsubsection{APIs para el cliente}\label{subsec5.3.2.1}
+Las APIs orientadas al usuario están diseñadas para proporcionar acceso a la información de los productos de manera rápida y sencilla. Estas permiten a los usuarios navegar por las distintas categorías y subcategorías, visualizar detalles específicos de los productos, acceder a las secciones especiales como ofertas, novedades o productos en liquidación y realizar pedidos.
+
+\begin{itemize}
+    \item \textbf{Obtener información de un producto específico:} Esta API de tipo GET permite a los usuarios obtener la información detallada de un producto específico mediante el uso de su ID. Al invocar este endpoint y proporcionar el ID del producto, la API devuelve un JSON con los detalles completos del producto, incluyendo su nombre, descripción, imágenes, precio, y cualquier otra característica relevante. Esta funcionalidad es esencial para la vista de detalle del producto, donde los usuarios pueden explorar toda la información antes de tomar una decisión de compra.
+    
+    \item \textbf{Obtener productos por categoría con paginación:} Para facilitar la navegación en el catálogo, se ha implementado una API GET que permite obtener productos según su categoría. Esta API recibe como parámetros la categoría deseada, el número de página y la cantidad de elementos por página. La API devuelve un conjunto de productos que pertenecen a la categoría indicada, organizados en la página correspondiente. Este endpoint es crucial para la paginación dentro de la aplicación, garantizando que los usuarios puedan explorar cómodamente todas las opciones disponibles sin sobrecargar la interfaz.
+    
+    \item \textbf{Obtener productos por categoría y subcategoría con paginación:} Similar a la API anterior, esta API GET se utiliza para obtener productos filtrados tanto por categoría como por subcategoría. Al recibir los parámetros de categoría, subcategoría, número de página y elementos por página, la API devuelve una lista de productos que coinciden con los criterios especificados. Esto es particularmente útil para los usuarios que desean explorar productos dentro de una subcategoría específica, como accesorios dentro de la categoría de cañas.
+
+    \item \textbf{Obtener subcategorías de una categoría:} A través de una petición GET, esta API permite obtener todas las subcategorías que pertenecen a una categoría específica. Al pasar como parámetro la categoría principal, la API devuelve un listado de las subcategorías asociadas, lo que es esencial para construir y visualizar el menú superior de navegación. Este endpoint asegura que los usuarios puedan explorar las diferentes divisiones del catálogo de manera organizada y clara, mejorando la experiencia de navegación en la aplicación.
+
+    \item \textbf{Obtener productos por ofertas, novedades o liquidaciones:} Esta API GET está diseñada para manejar la visualización de productos especiales, como los que están en oferta, son novedades o están en liquidación. Al pasar los parámetros correspondientes, la API devuelve los productos que coinciden con estas características, permitiendo a los usuarios enfocarse en las promociones actuales o en los últimos lanzamientos. Además, esta API soporta la paginación, permitiendo una navegación fluida incluso dentro de estas secciones específicas del catálogo.
+
+    \item \textbf{Obtener todos los productos destacados:} Esta API, mediante una petición GET, devuelve un listado de todos los productos que han sido marcados como "destacados" por el administrador. Los productos destacados se muestran en el carrusel de la página principal, y este endpoint permite al frontend obtener la información necesaria para visualizarlos correctamente. Al llamar a esta API, se envía un JSON con los detalles relevantes de cada producto destacado, como nombre, precio e imagen. Esta funcionalidad es clave para resaltar productos seleccionados en la página de inicio y fomentar su visibilidad entre los usuarios.
+
+    \item \textbf{Crear un nuevo pedido de productos:} A través de una petición POST, esta API permite a los usuarios realizar un pedido de productos. Al invocar el endpoint, se envía un conjunto de datos que incluye el ID del usuario, los productos seleccionados con sus respectivos IDs, cantidades, y el precio total del pedido. Una vez confirmado el pedido, la API devuelve un mensaje de éxito junto con los detalles del pedido, como el número de pedido y el total pagado.
+    
+    \item \textbf{Obtener detalles de un pedido específico:} Mediante una petición GET, esta API permite a los usuarios acceder a la información detallada de un pedido previamente realizado. Al proporcionar el ID del pedido, la API devuelve un JSON con los datos completos, incluyendo el número de pedido, los productos adquiridos, las cantidades y el precio total. Esta información es útil tanto para el usuario como para el administrador para hacer seguimiento de los pedidos.
+
+    
+\end{itemize}
+
+\subsubsection{APIs para el administrador}\label{subsec5.3.2.2}
+Las APIs para el administrador están enfocadas en la gestión y administración del catálogo de productos. A través de estas APIs, el administrador puede añadir, editar, eliminar productos, gestionar su visibilidad en las diferentes secciones de la tienda (ofertas, novedades, liquidación), y controlar aspectos visuales clave como el banner y el carrusel de productos.
+
+\begin{itemize}
+
+    \item \textbf{Crear un nuevo producto:} Mediante una petición POST, esta API permite al administrador agregar un nuevo producto al catálogo. Al invocar este endpoint, se deben enviar los detalles completos del producto. La API valida los datos proporcionados, crea un nuevo registro en la base de datos y responde con un mensaje de confirmación junto con los detalles del producto recién creado. Esta funcionalidad es esencial para expandir el catálogo de productos, permitiendo al administrador introducir nuevos artículos y mantener el inventario actualizado.
+    
+    \item \textbf{Eliminar un producto:} Esta API permite al administrador eliminar un producto del catálogo mediante una petición DELETE. Al invocar este endpoint, se debe proporcionar el ID del producto que se desea eliminar. Una vez realizada la solicitud, la API elimina el producto de la base de datos y responde con un mensaje de confirmación, asegurando que el producto ha sido removido exitosamente. Esta funcionalidad es clave para mantener el catálogo actualizado y eliminar productos obsoletos o fuera de inventario.
+    
+    \item \textbf{Editar un producto:} Para modificar los detalles de un producto, se ha implementado una API disponible tanto para peticiones PUT como PATCH, lo que otorga flexibilidad al administrador. En el caso de PUT, el administrador debe proporcionar todos los campos del producto que se desean actualizar, reemplazando la información anterior por completo. Por otro lado, PATCH permite modificar campos específicos, como el precio o la descripción, sin alterar el resto de la información del producto. Ambas operaciones requieren el ID del producto y responden con un mensaje confirmando que los cambios han sido aplicados con éxito.
+    
+    \item \textbf{Marcar o desmarcar productos como novedades, liquidación o destacados:} Esta API, accesible mediante una petición PUT, permite al administrador cambiar el estado de un producto para clasificarlo como novedad, liquidación o destacado en el carrusel de la página de inicio. Pasando el ID del producto y el estado correspondiente, el administrador puede marcar o desmarcar el producto en estas categorías especiales. Esto facilita la gestión del inventario, destacando productos estratégicos y asegurando que el catálogo refleja las promociones y ofertas actuales de la tienda.
+
+    \item \textbf{Obtener todos los pedidos:} Esta API GET permite al administrador obtener un listado completo de todos los pedidos de productos realizados por los clientes. La respuesta incluye los detalles de cada pedido, la información del cliente, los productos comprados, las cantidades y el precio total.
+
+    
+\end{itemize}
+
+\subsection{Reserva de cebo}\label{subsec5.3.3}
+
+Para gestionar de manera eficiente la funcionalidad de reserva de cebo en la aplicación, se han implementado diversas APIs que permiten tanto a los usuarios como a los administradores realizar y administrar reservas de manera segura y rápida. Estas APIs aseguran que los clientes puedan gestionar sus reservas de forma eficaz, mientras que los administradores tienen acceso a herramientas para controlar y supervisar el proceso de recogida. A continuación, se presentan las APIs categorizadas según su uso para el cliente y para el administrador.
+
+\vspace{0.5cm}
+
+\subsubsection{APIs para el cliente}\label{subsec5.3.3.1}
+
+Las APIs orientadas al cliente permiten gestionar todos los aspectos de la reserva de cebo, desde la selección del producto hasta la confirmación de la reserva. Estas APIs aseguran que los usuarios puedan interactuar con la aplicación de forma fluida y acceder a la información necesaria para completar sus reservas.
+
+\begin{itemize}
+
+     \item \textbf{Obtener todos los productos de la categoría de cebo:} Similar a la funcionalidad para productos generales, esta API GET permite a los clientes obtener un listado de todos los productos de la categoría cebo organizados por páginas. La API recibe como parámetros el número de página y la cantidad de productos por página, devolviendo un conjunto de resultados que facilita la navegación por las diferentes opciones disponibles.
+     
+    \item \textbf{Crear una nueva reserva de cebo:} Mediante una petición POST, esta API permite a los usuarios realizar una reserva de cebo. Al invocar el endpoint, se envía un conjunto de datos que incluye la fecha actual (automáticamente generada por la aplicación), la fecha de recogida seleccionada por el cliente, el ID del usuario, el ID del producto (cebo) y las unidades reservadas de cada producto. Una vez confirmada la reserva, la API devuelve un mensaje de éxito junto con los detalles de la misma.
+    
+    \item \textbf{Obtener detalles de una reserva específica:} A través de una petición GET, esta API permite a los usuarios obtener la información detallada de una reserva previamente realizada. Al proporcionar el ID de la reserva, la API devuelve un JSON con los detalles completos de la misma, incluyendo el estado de la reserva, los productos reservados, la fecha de recogida y cualquier otra información relevante para el cliente.
+
+
+\end{itemize}
+
+\vspace{0.5cm}
+
+\subsubsection{APIs para el administrador}\label{subsec5.3.3.2}
+
+Las APIs orientadas al administrador están diseñadas para gestionar de manera eficaz todas las reservas de cebo, permitiendo tanto el filtrado de reservas según su estado como la actualización de su estado una vez que el cliente haya recogido el pedido.
+
+\begin{itemize}
+
+    \item \textbf{Obtener todas las reservas:} Esta API GET permite al administrador obtener un listado completo de todas las reservas de cebo realizadas por los clientes. La respuesta incluye los detalles de cada reserva, como el nombre del cliente, los productos reservados, la fecha de recogida y el estado actual de la reserva.
+    
+    \item \textbf{Obtener reservas pasadas y futuras:} A través de una petición GET, estas APIs permiten al administrador filtrar las reservas en función de la fecha actual. Al recibir los parámetros 'futuras' o 'pasadas', la API devuelve un listado de las reservas que aún no han sido recogidas (futuras) o las que ya han sido completadas (pasadas), facilitando así la organización y planificación de los pedidos en la tienda.
+    
+    \item \textbf{Obtener reservas de un usuario específico:} Esta API GET permite obtener todas las reservas asociadas a un cliente específico, identificándolo por su ID de usuario. Es particularmente útil para que el administrador pueda atender consultas o reclamaciones de los clientes de forma personalizada, facilitando la búsqueda rápida de las reservas asociadas a un cliente concreto.
+    
+    \item \textbf{Borrar una reserva:} Mediante una petición DELETE, esta API permite al administrador eliminar una reserva de la base de datos. Al invocar este endpoint, se debe proporcionar el ID de la reserva que se desea eliminar. Tras confirmar la eliminación, la API responde con un mensaje de éxito, asegurando que la reserva ha sido eliminada correctamente.
+    
+    \item \textbf{Marcar una reserva como recogida:} Esta API PUT permite al administrador actualizar el estado de una reserva una vez que el cliente haya recogido el cebo. Al proporcionar el ID de la reserva, la API actualiza su estado a 'recogida', lo que facilita el control de las reservas completadas y asegura que el sistema mantiene un registro preciso de todas las interacciones del cliente.
+
+\end{itemize}
+
+\vspace{0.5cm}
+
+En este apartado se describen las principales APIs desarrolladas para la aplicación, detallando sus métodos, endpoints y funcionalidades. Para una visualización más detallada de las pruebas realizadas y la estructura completa de las APIs, se puede consultar la colección de Postman exportada, que se incluye en el \textcolor{naranja}{Anexo II: APIs utilizadas}
+
+\vspace{0.5cm}
+
+\section{Aspectos destacables de programación}\label{sec:apartado}
+
+El desarrollo de la aplicación ha implicado la implementación de diversas funcionalidades clave que destacan tanto por su complejidad como por las soluciones adoptadas para garantizar un rendimiento óptimo y una experiencia de usuario segura y fluida. A continuación, se detallan algunos de los aspectos más relevantes en la programación.
+
+\subsection{Login y registro de usuario}\label{subsec5.4.1}
+
+El proceso de registro y autenticación de usuarios ha sido implementado con especial atención a la seguridad, la validación de datos y la eficiencia en la comunicación entre el backend y el frontend. A continuación, se describen los aspectos más destacados de esta implementación:
+
+\begin{itemize}
+    \item \textbf{Validación de Datos y Reglas Personalizadas en Laravel} 
+
+    \begin{itemize}
+        \item En el controlador UsuarioController, se implementan diversas reglas de validación para garantizar la integridad de los datos introducidos por los usuarios al registrarse. Se utilizan tanto reglas estándar de Laravel como reglas personalizadas, como ValidarDNI, ValidarTelefono, y ValidarPassword. Estas reglas se encargan de verificar que los datos cumplen con los requisitos de formato y seguridad antes de proceder a su almacenamiento.
+        
+        
+        \item Además de la validación, se implementa el hash de la contraseña mediante Hash::make() antes de almacenarla en la base de datos, asegurando que las contraseñas nunca se guarden en texto plano, lo que refuerza la seguridad de la aplicación.
+        
+    \end{itemize}
+
+    \vspace{0.5cm}
+    
+    \item \textbf{Gestión de Autenticación y Tokenización} 
+
+    \begin{itemize}
+        \item Durante el proceso de login, el controlador valida las credenciales proporcionadas y, si son correctas, genera un token de acceso personal utilizando el método createToken() del modelo Usuario. Este token es enviado al frontend, donde se almacena en el localStorage para ser utilizado en futuras solicitudes autenticadas. Esta técnica de tokenización asegura que las sesiones del usuario sean seguras y manejables desde el frontend.
+        
+        
+        \item El manejo de errores es otra característica destacable. Si el usuario no es encontrado o si la contraseña es incorrecta, se devuelven respuestas HTTP específicas (404) con mensajes adecuados, lo que permite al frontend manejar estos errores de manera efectiva.
+        
+    \end{itemize}
+
+    \vspace{0.5cm}
+    
+    \item \textbf{Frontend con Angular: Manejo de Estado y Almacenamiento en Local Storage} 
+
+        \begin{itemize}
+        \item En el componente LoginComponent de Angular, se realiza un cuidadoso manejo del estado del usuario y de la gestión de la autenticación. Cuando un usuario inicia sesión correctamente, el token y la información del usuario se almacenan en el localStorage, lo que permite mantener la sesión activa incluso después de que el usuario cierre el navegador o recargue la página.
+        
+        
+        \item La visibilidad de la contraseña es otra funcionalidad implementada en el frontend, permitiendo al usuario alternar entre ver y ocultar su contraseña mediante un simple botón. Esto mejora la experiencia de usuario sin comprometer la seguridad.
+
+        \item Además, se implementa una validación asíncrona del correo electrónico en el frontend para verificar que el formato sea correcto y que el correo esté registrado en el sistema antes de enviar las credenciales, lo que añade una capa adicional de robustez a la validación de datos en el cliente.
+        
+    \end{itemize}
+
+    \vspace{0.5cm}
+
+\end{itemize}
+
+\subsection{Productos}\label{subsec5.4.2}
+
+Los productos es una de las piezas centrales en el funcionamiento de la aplicación, ya que permite la gestión eficiente de todos los artículos disponibles en la plataforma. Para su implementación, se han desarrollado funcionalidades tanto en el backend como en el frontend, garantizando que los usuarios puedan interactuar de manera rápida, segura y eficiente con el catálogo de productos.
+
+\vspace{0.5cm}
+
+Desde el backend, se manejan operaciones como la creación, actualización, eliminación y consulta de productos, así como la categorización, paginación y gestión de descuentos. Estas operaciones han sido diseñadas con especial atención a la robustez del código, la escalabilidad y el manejo adecuado de las imágenes asociadas a cada producto. Asimismo, se han implementado diferentes tipos de productos destacados, como novedades y liquidaciones, para ofrecer una experiencia personalizada a los usuarios.
+
+\vspace{0.5cm}
+
+En el frontend, se abordarán aspectos cruciales como la presentación del catálogo de productos, la navegación por categorías y subcategorías, el uso de filtros para facilitar la búsqueda y la visualización de productos en oferta o destacados. Se ha tenido en cuenta la optimización del rendimiento y la experiencia del usuario al interactuar con grandes volúmenes de datos mediante la paginación y la integración fluida entre el frontend y el backend.
+
+\begin{itemize}
+    \item \textbf{Backend: Controlador de Productos en Laravel} 
+
+    El controlador de productos en Laravel permite gestionar de forma eficiente las operaciones CRUD (Crear, Leer, Actualizar y Eliminar) para los productos de la plataforma. A continuación, se destacan algunos de los aspectos más importantes de la implementación:
+
+    \begin{itemize}
+        \item \textbf{Listado de productos y paginación: }Se ofrecen dos métodos principales para listar productos: uno que devuelve todos los productos disponibles (index()) y otro que los pagina para optimizar la carga cuando se trabaja con grandes volúmenes de datos (indexPaginate()). La paginación está diseñada para personalizar la cantidad de elementos por página, mejorando el rendimiento de la aplicación y la experiencia del usuario.
+
+         \item \textbf{Filtros por categoría y subcategoría: }El controlador permite filtrar productos por categoría y subcategoría, ofreciendo así a los usuarios una forma de navegar más eficiente por el catálogo de la tienda. Los métodos getByCategory() y getByCategoryAndSubcategory() optimizan la búsqueda de productos mediante filtros específicos y paginación.
+
+         \item \textbf{Gestión de productos destacados, novedades y liquidaciones: }Se han implementado funcionalidades para marcar y obtener productos que pertenecen a las categorías especiales de "destacados", "novedades" y "liquidaciones". Los métodos setFeatured(), setNew(), setSettlement(), unsetFeatured(), unsetNew() y unsetSettlement() se encargan de modificar el estado de los productos, mientras que getFeatured(), getNews() y getSettlements() los devuelven paginados para su visualización en el frontend. Estas categorías ofrecen una experiencia personalizada al usuario y ayudan a destacar ciertos productos.
+
+         \item \textbf{Subcategorías dinámicas: }El controlador cuenta con un método (getSubcategoriesByCategory()) que extrae dinámicamente las subcategorías de una categoría seleccionada. Esto no solo agiliza la presentación de los productos, sino que también mejora la navegación dentro de la plataforma, permitiendo mostrar solo las subcategorías relevantes.
+
+         \item \textbf{Productos con descuento: }El método getDiscountedProducts() se encarga de listar todos aquellos productos que tienen un precio de descuento definido, lo que facilita la creación de secciones de ofertas en la aplicación.
+
+         \item \textbf{Gestión de imágenes: }Para la subida de imágenes asociadas a los productos, se ha implementado una lógica que permite almacenar y servir las imágenes de manera eficiente. El método upload() se encarga de recibir múltiples imágenes, almacenarlas y devolver las URLs correspondientes, mientras que las imágenes se eliminan del servidor al borrar un producto, garantizando una gestión adecuada de los recursos.
+        
+    \end{itemize}
+
+    Estos aspectos del backend aseguran una arquitectura robusta y eficiente para la gestión de productos en la plataforma, garantizando tanto la escalabilidad como la seguridad de los datos.
+
+    \vspace{0.5cm}
+    
+    \item \textbf{Frontend: Gestión de productos con Angular} 
+
+    En el frontend de la aplicación, se han implementado dos componentes clave: el de productos y el de carrito. Ambos permiten a los usuarios interactuar de forma intuitiva con la plataforma, ya sea para explorar los productos disponibles o gestionar su carrito de compras. A continuación, se describen los aspectos más importantes de estos componentes:
+
+    \begin{itemize}
+
+    \item \textbf{Listado de productos con interacción visual: } El componente de productos (ProductoComponent) es responsable de mostrar una lista de todos los productos disponibles en la tienda. Utiliza un servicio (ProductoService) para conectarse al backend y recuperar los datos, proporcionando una interfaz interactiva para navegar y gestionar los productos.
+    
+    \item \textbf{Edición y eliminación de productos: } El componente permite la edición y eliminación de productos directamente desde la interfaz. Al seleccionar un producto, los usuarios pueden modificar su información o eliminarlo de la lista. El componente utiliza métodos para llamar a las funciones CRUD del servicio de productos.
+    
+    \item \textbf{Gestión de productos destacados, novedades y liquidaciones: } Se han implementado botones y acciones específicas en la interfaz del administrador para marcar productos como "destacados", "novedades" o "liquidaciones". Estos estados se reflejan visualmente y son actualizados automáticamente en el backend mediante el servicio de productos.
+    
+    \item \textbf{Carga y manejo de imágenes: } El componente de productos cuenta con una funcionalidad para la subida de imágenes, permitiendo al administrador adjuntar imágenes al crear o editar productos. Las imágenes son enviadas al servidor a través de FormData, y se muestran en la interfaz de manera eficiente.
+    
+    \item \textbf{Filtros dinámicos de productos: } A través de un sistema de filtros, el componente permite a los usuarios visualizar productos por categoría y subcategoría, mejorando la experiencia de navegación dentro de la plataforma. Los productos pueden filtrarse de acuerdo a su estado (destacado, novedad, en liquidación) o según criterios específicos como descuentos.
+
+    \item \textbf{Interacción con el carrito: } El componente CarritoProductosComponent es responsable de la gestión y visualización del carrito de compras. Los usuarios pueden ver los productos que han agregado, actualizar la cantidad de productos o eliminarlos del carrito. A través de la interacción con el CarritosService, el carrito se almacena y gestiona mediante cookies, lo que permite conservar la información del carrito entre sesiones.
+
+    \item \textbf{Interacción con el carrito y persistencia con cookies: } El componente CarritoProductosComponent se encarga de la visualización y gestión del carrito de compras. Aquí, el uso de cookies es fundamental para garantizar la persistencia de los productos agregados por el usuario entre sesiones. A través del servicio CarritosService, el carrito se almacena localmente en el navegador utilizando cookies, lo que significa que el usuario puede cerrar el navegador o volver más tarde, y los productos seguirán disponibles en su carrito. Las cookies se actualizan cada vez que se agrega, elimina o modifica un producto.
+
+    \item \textbf{Manejo de cookies en el carrito: } Cada vez que el usuario agrega un producto al carrito, se guarda en una cookie personalizada llamada carrito. Este proceso se realiza a través de métodos del servicio CarritosService, que gestionan la creación, actualización y eliminación de las cookies. Para mantener la coherencia de los datos, el carrito se actualiza constantemente al modificar las cantidades o eliminar productos, y las cookies se sobrescriben con la nueva información, asegurando que siempre contengan el estado más reciente del carrito.
+    
+    \item \textbf{Cálculo dinámico del total: } Se ha implementado una función que calcula el total del carrito basado en los productos almacenados en la cookie. Al actualizar las cantidades o eliminar un producto, el total se recalcula automáticamente, reflejando los cambios en tiempo real. Este total también se ajusta si se aplican descuentos.
+    
+    \item \textbf{Optimización visual y usabilidad: } La interfaz de usuario está diseñada para ser clara y accesible, mostrando alertas visuales para confirmaciones de acciones como la eliminación de productos o la actualización de su estado. Además, el diseño incluye paginación para mejorar la carga y navegación en listas grandes de productos.
+
+    
+    
+    \end{itemize}
+    
+    Estos aspectos del frontend garantizan una experiencia de usuario fluida y eficiente en la gestión de productos y del carrito de compras. La interfaz permite una interacción intuitiva con los productos, mientras que la funcionalidad del carrito, respaldada por el almacenamiento en cookies, asegura la persistencia de la información del carrito entre sesiones. Esto no solo mejora la experiencia del usuario al mantener los datos del carrito disponibles y actualizados, sino que también optimiza el rendimiento de la aplicación al reducir la dependencia de consultas constantes al backend.
+
+
+
+    \vspace{0.5cm}
+\end{itemize}
+ 
+\subsection{Pedidos}\label{subsec5.4.3}
+
+Los pedidos son una parte central del flujo de compras en la aplicación, permitiendo a los usuarios realizar compras de manera eficiente y al administrador gestionar y procesar dichas solicitudes de forma ágil. La implementación abarca tanto el backend como el frontend, con funcionalidades que garantizan una experiencia de usuario óptima desde la selección de productos hasta la confirmación del pedido.
+
+\vspace{0.5cm}
+
+Desde el backend, se manejan operaciones como la creación de nuevos pedidos y la confirmación de estos. Estas operaciones están diseñadas con especial atención a la coherencia de los datos mediante transacciones, la gestión correcta del inventario, y la notificación automática a clientes y administradores por correo electrónico al realizarse un pedido. Además, el cálculo dinámico del total del pedido y la validación del stock disponible son aspectos clave para asegurar la integridad del proceso.
+
+\vspace{0.5cm}
+
+En el frontend, se garantiza una interacción amigable, donde los usuarios pueden visualizar los detalles del pedido, confirmar su compra, y visualizar la infromación de todos los pedidos que ha efectuado. La experiencia de usuario se optimiza mediante la navegación sencilla, la visualización clara de los productos en el pedido, y el cálculo automático del total de la compra.
+
+
+\begin{itemize}
+    \item \textbf{Backend: Controlador de Pedidos en Laravel} 
+    El controlador de pedidos en Laravel permite gestionar de forma eficiente el ciclo completo de los pedidos. A continuación, se destacan los aspectos más importantes de la implementación:
+
+    \begin{itemize}
+
+        \item \textbf{Creación y validación de pedidos:}El método store() se encarga de validar los datos de entrada del pedido, verificando la disponibilidad de stock para cada producto solicitado. En caso de éxito, se genera un nuevo número de pedido y se actualiza el inventario, garantizando que no haya inconsistencias en los datos.
+
+        \item \textbf{Transacciones y consistencia de datos:}Para asegurar que los cambios en los productos y el pedido se apliquen de manera atómica, se utiliza una transacción de base de datos. Si ocurre un error en cualquier punto del proceso, la transacción se revierte para mantener la integridad del sistema.
+
+        \item \textbf{Cálculo del total del pedido:}Durante la creación y consulta de un pedido, se calcula el total a pagar, teniendo en cuenta el precio de los productos y los posibles descuentos aplicados. Este cálculo se formatea a dos decimales para garantizar precisión en los pagos.
+
+        \item \textbf{Notificaciones por correo:}Una vez que se confirma un pedido, el sistema envía automáticamente correos electrónicos tanto al cliente como al administrador. Estos correos incluyen los detalles del pedido, asegurando que ambas partes estén informadas del estado del proceso de compra.
+
+        \item \textbf{Gestión de pedidos por usuario:}Se implementa un método para obtener los pedidos de un usuario específico, permitiendo un acceso rápido y eficiente a los pedidos realizados por cada cliente. Esto facilita la atención a consultas personalizadas y mejora la experiencia de usuario.
+
+    \end{itemize}
+    
+    \item \textbf{Frontend: Gestión de Pedidos con Angular}
+    En el frontend, la gestión de pedidos se ha desarrollado con una interfaz intuitiva que permite a los usuarios visualizar, gestionar y seguir el estado de sus pedidos de manera fluida. A continuación, se describen los aspectos más importantes:
+    
+    \begin{itemize}
+
+        \item \textbf{Visualización del resumen del pedido:}Antes de finalizar el proceso de compra, los usuarios pueden visualizar un resumen detallado del pedido, con los productos seleccionados, las cantidades y el precio total. Esto les permite verificar toda la información antes de proceder. Una vez confirmado, se muestra el detalle de este.
+
+    \end{itemize}
+
+\end{itemize}
+
+\subsection{Reserva de cebo}\label{subsec5.4.4}
+
+Las reservas de cebo son un componente fundamental de la plataforma, permitiendo a los usuarios realizar pedidos anticipados de productos y asegurarse de que estén disponibles para la recogida en la fecha indicada. La gestión de reservas de cebo se ha implementado tanto en el backend como en el frontend, garantizando una experiencia de usuario fluida y segura.
+
+\vspace{0.5cm}
+Desde el backend, se implementan funcionalidades como la creación, consulta, actualización y eliminación de reservas, además de la categorización de reservas en función de su estado (pasadas, futuras, o recogidas). Estas operaciones han sido desarrolladas con especial énfasis en la consistencia de los datos y el manejo eficiente de la base de datos a través de transacciones. También se incluye la funcionalidad para enviar correos electrónicos automáticos tanto al cliente como al administrador, informando del estado de las reservas.
+
+\vspace{0.5cm}
+
+En el frontend, los clientes pueden realizar reservas de cebo y recibir notificaciones una vez realicen el pedido. El adminsitrador puede visualziar todas las reservas, añadir filtros para ver las futuras o pasadas, e incluso, filtrar por el nombre del cliente. También, puede marcar estas como recogidas una vez que el cliente acuda a por su cebo reservado.
+Se ha prestado atención a la presentación visual de los datos, permitiendo la visualización detallada de los productos reservados, sus precios y descuentos, así como la fecha de recogida.
+
+\begin{itemize} \item \textbf{Backend: Controlador de Reservas en Laravel}
+
+    El controlador de reservas en Laravel facilita las operaciones CRUD para las reservas de la plataforma. A continuación, se describen los aspectos más importantes de la implementación:
+
+\begin{itemize}
+    \item \textbf{Creación de reservas: }El método `store()` gestiona la creación de nuevas reservas, validando los datos de entrada y creando las relaciones correspondientes entre la reserva y los productos asociados. Además, se garantiza la consistencia de los datos mediante el uso de transacciones en la base de datos, evitando errores en la creación de registros.
+
+    \item \textbf{Reservas pasadas y futuras: }A través de los métodos `reservasPasadas()` y `reservasFuturas()`, se permiten consultas optimizadas sobre las reservas en función de la fecha de recogida, facilitando al usuario la visualización organizada de sus reservas. Ambas consultas están diseñadas para reducir la carga en el servidor y mejorar la experiencia del usuario.
+
+    \item \textbf{Reservas por usuario: }El método `getReservasUser()` permite obtener todas las reservas de un usuario específico, incluyendo detalles sobre los productos reservados y el estado de la reserva. Esto facilita la gestión personalizada de las reservas para cada usuario.
+
+    \item \textbf{Gestión de correos electrónicos: }Una vez confirmada la reserva, se envía un correo electrónico tanto al cliente como al administrador. Esto se implementa mediante las clases `ReservaClienteMailable` y `ReservaAdminMailable`, las cuales generan automáticamente correos con la información detallada de la reserva y aplican estilos CSS para una presentación visual adecuada. Los correos son enviados utilizando el servicio de SMTP configurado en el archivo `.env`.
+
+    \item \textbf{Transacciones en la eliminación de reservas: }El método `destroy()` asegura que al eliminar una reserva, se eliminen también todos los productos asociados a la misma, garantizando la integridad de la base de datos a través del uso de transacciones.
+
+    \item \textbf{Marcado de pedidos recogidos: }El controlador incluye el método `setDelivery()`, que permite actualizar el estado de una reserva marcándola como recogida, lo cual ayuda a llevar un control preciso del flujo de pedidos en la tienda.
+\end{itemize}
+
+Estas funcionalidades permiten una gestión robusta y eficiente del sistema de reservas, asegurando que los usuarios puedan reservar productos de manera confiable y que el administrador pueda supervisar las reservas con facilidad.
+
+\vspace{0.5cm}
+
+Además, la integración de los correos electrónicos en el sistema proporciona una comunicación eficaz entre la tienda y sus clientes, mejorando la confianza y la transparencia en el proceso de reserva.
+
+\end{itemize}
+
+
+\begin{itemize} \item \textbf{Backend: Gestión de correos electrónicos}
+
+    La implementación del sistema de correos electrónicos en la plataforma permite notificar tanto al cliente como al administrador sobre las reservas realizadas. Esta funcionalidad se ha desarrollado utilizando las clases de correo de Laravel (Mailable) y se ha integrado con el sistema de colas para asegurar que los correos se envíen de manera eficiente, incluso en momentos de alta demanda.
+
+\begin{itemize}
+    \item \textbf{Configuración en el archivo .env} Para conectar la aplicación con el servidor SMTP de Office365, se han añadido las siguientes variables de entorno en el archivo .env:
+    \begin{itemize}
+         \item MAIL\_MAILER: Indica que se usará el protocolo smtp (Simple Mail Transfer Protocol) para enviar correos.
+
+         \item MAIL\_HOST: El servidor de correo saliente configurado, en este caso smtp.office365.com, que corresponde al servicio de Office365.
+
+         \item MAIL\_PORT: El puerto 587 es el utilizado para la conexión segura con el servidor SMTP.
+
+         \item MAIL\_USERNAME y MAIL\_PASSWORD: Son las credenciales que permiten autenticar la conexión y asegurar que el envío de correos es autorizado.
+
+         \item MAIL\_ENCRYPTION: La encriptación tls (Transport Layer Security) asegura una transmisión segura de los correos.
+
+         \item MAIL\_FROM\_ADDRESS y MAIL\_FROM\_NAME: La dirección y el nombre del remitente que aparecerán en los correos enviados desde la plataforma, en este caso asociados a "La Botiga del Port".
+           
+    \end{itemize}
+
+     \item \textbf{Implementación de correos en el sistema: } El envío de correos se realiza mediante dos clases Mailable, que gestionan los correos enviados tanto al cliente como al administrador al confirmar una reserva. Cada uno de estos correos incluye información detallada de la reserva y se entrega con un formato visual personalizado, incluyendo el uso de estilos CSS en línea para garantizar su correcta visualización en distintos clientes de correo.
+
+     \begin{itemize}
+         \item Correo de confirmación al cliente: Implementado en la clase ReservaClienteMailable, se utiliza para enviar al cliente un resumen de su reserva, junto con información importante sobre la recogida.
+
+         \item Correo al administrador: Similar al correo del cliente, pero dirigido al administrador para notificarle de las nuevas reservas, permitiéndole gestionar el inventario y los pedidos.
+
+    \end{itemize}
+
+     Ambos correos se generan utilizando vistas personalizadas en Blade, aplicando estilos CSS en línea a través de la librería CssToInlineStyles, para asegurar una presentación correcta en los distintos clientes de correo. Además, se adjunta el logotipo de la tienda para una presentación visual más atractiva y profesional.
+     
+\end{itemize}
+
+\end{itemize}
+
+\begin{itemize} \item \textbf{Angular: Gestión de Reservas con Angular}
+
+
+En el frontend de la aplicación, se ha implementado un componente clave para la gestión de reservas. Este componente permite a los usuarios interactuar de forma intuitiva con la plataforma, facilitando la selección y confirmación de reservas. A continuación, se describen los aspectos más importantes de este componente:
+
+
+\begin{enumerate}
+    \item \textbf{Interfaz de selección de reservas (\texttt{SubhomeReservaceboComponent})}:
+    \begin{itemize}
+        \item \textbf{Carga de productos}:
+        \begin{itemize}
+            \item Este componente es responsable de cargar y mostrar una lista de productos disponibles para reserva, utilizando el servicio \texttt{ProductoService}.
+            \item Implementa paginación a través de \texttt{MatPaginator}, permitiendo una navegación fluida entre productos.
+        \end{itemize}
+        
+        \item \textbf{Gestión de cantidades seleccionadas}:
+        \begin{itemize}
+            \item Los usuarios pueden seleccionar cantidades para cada producto. La selección se almacena temporalmente en un array (\texttt{productosSeleccionados}).
+            \item Se actualizan las cookies con las cantidades seleccionadas, asegurando la persistencia de datos entre sesiones.
+        \end{itemize}
+        
+        \item \textbf{Confirmación de reservas}:
+        \begin{itemize}
+            \item Se verifica la fecha de recogida y se validan los productos seleccionados antes de proceder a la confirmación.
+            \item Si el usuario está autenticado, se almacenan los datos relevantes en cookies y se redirige a la pantalla de resumen de reservas.
+        \end{itemize}
+    \end{itemize}
+
+    \item \textbf{Componente de resumen de reservas (\texttt{ResumenReservaComponent})}:
+    \begin{itemize}
+        \item \textbf{Visualización de reservas}:
+        \begin{itemize}
+            \item Este componente muestra un resumen de los productos seleccionados, la fecha de recogida y el precio total de la reserva.
+            \item Lee los datos directamente de las cookies, permitiendo a los usuarios revisar su selección antes de confirmar.
+        \end{itemize}
+        
+        \item \textbf{Cálculo del precio total}:
+        \begin{itemize}
+            \item Se implementa una función para calcular el total basado en las cantidades y precios de los productos seleccionados.
+            \item El total se actualiza automáticamente cuando se incrementa o disminuye la cantidad de algún producto.
+        \end{itemize}
+        
+        \item \textbf{Interacción con el servicio de reserva}:
+        \begin{itemize}
+            \item Al confirmar la reserva, se envían los datos necesarios al backend mediante el \texttt{ReservaCeboService}, gestionando la creación de la reserva de forma eficiente.
+        \end{itemize}
+    \end{itemize}
+
+    \item \textbf{Componente de confirmación de reservas (\texttt{ConformacionReservaComponent})}:
+    \begin{itemize}
+        \item \textbf{Visualización de detalles de reserva}:
+        \begin{itemize}
+            \item Al recibir el número de reserva como parámetro de consulta, este componente obtiene los detalles de la reserva desde el backend.
+            \item Muestra la información relevante al usuario, como productos reservados y precios.
+        \end{itemize}
+    \end{itemize}
+
+    \item \textbf{Componente de administración de reservas (\texttt{ReservasCeboAdminComponent})}:
+    \begin{itemize}
+        \item \textbf{Gestión de reservas}:
+        \begin{itemize}
+            \item Este componente permite a los administradores ver y gestionar todas las reservas realizadas, filtrando entre reservas futuras y pasadas.
+            \item Incluye un sistema de búsqueda para filtrar reservas por usuario, mejorando la accesibilidad a la información.
+        \end{itemize}
+        
+        \item \textbf{Interacción con usuarios}:
+        \begin{itemize}
+            \item Permite seleccionar usuarios para ver sus reservas asociadas. Esto se realiza mediante un sistema de autocompletado basado en la entrada del usuario.
+            \item Se implementan funciones para marcar reservas como recogidas y para eliminar reservas, manteniendo al usuario informado mediante notificaciones.
+        \end{itemize}
+    \end{itemize}
+\end{enumerate}
+
+Estos aspectos de la gestión de reservas en el frontend garantizan una experiencia de usuario fluida y eficiente. La interfaz permite una interacción intuitiva con las reservas, mientras que la persistencia de la información a través de cookies asegura que los datos se mantengan disponibles entre sesiones, optimizando la funcionalidad de la aplicación.
+
+\end{itemize}
+
+
+
+
+\chapter{Conclusiones}\label{cap:cap6}
+
+El desarrollo de la plataforma web para la gestión y venta de artículos de pesca ha sido una experiencia extremadamente enriquecedora, tanto a nivel personal como profesional. A lo largo de este proyecto, he adquirido conocimientos valiosos en una amplia gama de áreas, desde el diseño de interfaces de usuario hasta la implementación de arquitecturas back-end robustas y eficientes. Cada etapa del proceso ha representado una oportunidad de aprendizaje, lo que ha permitido no solo mejorar mis habilidades técnicas, sino también profundizar en la comprensión de los desafíos que implica el desarrollo de soluciones tecnológicas personalizadas.
+
+\vspace{0.5cm}
+
+Uno de los principales aprendizajes ha sido la integración de tecnologías avanzadas como Laravel para el back-end y Angular para el front-end. Este enfoque tecnológico, aunque complejo en ciertos momentos, ha resultado fundamental para lograr una plataforma eficiente, segura y escalable. Laravel, con su enfoque modular y su arquitectura basada en el patrón MVC, ha facilitado el desarrollo ágil y la creación de una API robusta para la comunicación con el front-end. Por otro lado, Angular ha sido clave para garantizar una experiencia de usuario dinámica y fluida, algo que es esencial en el contexto de una tienda en línea que debe ser intuitiva y rápida para los clientes.
+
+\vspace{0.5cm}
+
+Sin embargo, este proyecto no estuvo exento de desafíos. Uno de los aspectos más complejos fue la implementación de un sistema que pudiera gestionar de manera eficiente tanto el inventario de productos como la reserva de cebo. La necesidad de asegurar que el sistema fuera capaz de actualizar en tiempo real la disponibilidad de los artículos, al mismo tiempo que permitía a los clientes reservar ciertos productos específicos, como el cebo, fue un reto importante. La gestión de transacciones y la integridad de los datos en situaciones de alta demanda también representaron desafíos técnicos significativos, especialmente al diseñar la estructura de la base de datos y asegurar que las operaciones críticas como las reservas y ventas se procesaran de manera eficiente y sin errores.
+
+\vspace{0.5cm}
+
+Otro reto considerable fue la conciliación entre la funcionalidad y la usabilidad. Lograr que la plataforma no solo fuera robusta, sino también intuitiva, requirió un esfuerzo considerable en la planificación y el diseño de la interfaz de usuario. A lo largo del proceso de desarrollo, me encontré ante decisiones difíciles sobre cómo balancear la funcionalidad avanzada de la aplicación con la necesidad de mantener una experiencia de usuario simple y atractiva. Fue necesario llevar a cabo un análisis constante del flujo de navegación, identificar puntos críticos en la experiencia del usuario y realizar ajustes sobre la marcha para garantizar que la plataforma fuera accesible tanto para usuarios con conocimientos técnicos limitados como para administradores que requerían un control total sobre las funcionalidades más avanzadas.
+
+\vspace{0.5cm}
+
+Uno de los aspectos más desafiantes, sin duda, fue la curva de aprendizaje de ciertas tecnologías y frameworks. Si bien tenía experiencia previa con algunas herramientas, profundizar en el uso de Angular y TypeScript, y dominar Laravel en un contexto tan amplio, fue un reto que requirió una dedicación considerable. Hubo momentos en los que el proyecto se volvió técnicamente demandante y requería la resolución de problemas que no siempre tenían soluciones obvias. Estos desafíos me permitieron desarrollar una mayor capacidad para investigar, experimentar con nuevas soluciones y aprender de los errores. Aunque el proceso fue a menudo agotador, la satisfacción de superar cada obstáculo técnico compensó con creces el esfuerzo invertido.
+
+\vspace{0.5cm}
+
+Otro desafío importante fue garantizar la seguridad de la plataforma. En un entorno en línea, la protección de los datos de los usuarios y la integridad del sistema son aspectos críticos. Implementar mecanismos de seguridad avanzados, como la autenticación segura, la protección contra ataques de inyección SQL y la encriptación de datos sensibles, fue una prioridad a lo largo del desarrollo. Asegurarme de que la aplicación cumpliera con los estándares de seguridad adecuados fue un reto técnico y conceptual, pero también una lección crucial sobre la importancia de la seguridad en cualquier sistema web.
+
+
+\vspace{0.5cm}
+
+En términos personales, el desarrollo de este proyecto ha sido un verdadero reto. Hubo momentos en los que el avance parecía lento o cuando surgían problemas inesperados que complicaban el progreso. No obstante, superar estos obstáculos me ha ayudado a fortalecer mi capacidad de resiliencia y mi confianza en la resolución de problemas complejos. Cada dificultad enfrentada, ya sea técnica o de gestión del tiempo, me ha permitido crecer como desarrolladorA y como profesional. Además, este proyecto me ha enseñado la importancia de la planificación y la gestión eficiente de los recursos.
+
+\vspace{0.5cm}
+
+En definitiva, este proyecto ha sido una experiencia transformadora. A pesar de las dificultades técnicas y los momentos de frustración, el resultado final es una aplicación web que no solo cumple con los objetivos planteados, sino que también ofrece una solución integral y personalizada para un nicho específico del mercado. Estoy satisfecha con los logros alcanzados y confío en que la aplicación desarrollada contribuirá significativamente al éxito del negocio para el cual fue concebida. Este proyecto no solo me ha permitido consolidar mis habilidades como desarrollador, sino también reafirmar mi pasión por la creación de soluciones tecnológicas que resuelvan problemas reales y mejoren la eficiencia operativa de los negocios.
+
+\chapter{Trabajo futuro}\label{cap:cap7}
+
+Un aspecto prioritario en el corto plazo es la implementación de una pasarela de pago que permita a los usuarios realizar pedidos y reservas de cebo directamente desde la plataforma, con la posibilidad de efectuar el pago de manera segura y eficiente. Actualmente, estamos a la espera de recibir la información necesaria por parte de la entidad bancaria para integrar este sistema. La incorporación de esta funcionalidad resultará fundamental para mejorar la experiencia del usuario y agilizar el proceso de compra.
+
+\vspace{0.5cm}
+
+Mirando más allá, uno de los objetivos clave a medio y largo plazo es el desarrollo de un sistema avanzado de análisis de datos avanzado que permita obtener información detallada sobre diversos aspectos del negocio, tales como las ventas, los usuarios más activos, los productos más y menos vendidos, y la estacionalidad de las transacciones. Este tipo de análisis resultaría fundamental para tomar decisiones estratégicas, especialmente considerando que se trata de un negocio nuevo, donde conocer el comportamiento del mercado y de los clientes es crucial para su crecimiento y sostenibilidad.
+
+\vspace{0.5cm}
+
+El análisis de las ventas proporcionaría una visión clara sobre los meses con mayor facturación, lo que ayudaría a identificar patrones estacionales y prever demandas futuras. Esto nos permitiría planificar mejor el inventario, asegurando que siempre haya suficiente stock disponible durante los períodos de mayor demanda, y optimizar los recursos durante los meses más tranquilos. Además, la identificación de los productos más vendidos facilitaría el enfoque de nuestras estrategias de marketing y promociones, mientras que el análisis de los productos menos vendidos nos permitiría reconsiderar el surtido o buscar formas de incentivar su compra.
+
+\vspace{0.5cm}
+
+Otra funcionalidad relevante de este análisis sería la identificación de los usuarios más frecuentes y aquellos que generan mayores ingresos. Con esta información, podríamos desarrollar campañas de fidelización más efectivas y personalizadas, lo que no solo ayudaría a retener a los mejores clientes, sino también a incentivar nuevas compras a través de ofertas especiales o programas de lealtad. Esta segmentación avanzada sería una herramienta poderosa para mejorar la relación con nuestros clientes y aumentar la rentabilidad del negocio.
+
+\vspace{0.5cm}
+
+Implementar este sistema de análisis lo antes posible es una prioridad, ya que ofrecería una ventaja competitiva importante al proporcionar datos clave que guiarían las decisiones comerciales. Al tratarse de un negocio emergente, disponer de esta información desde el inicio nos permitirá adaptarnos rápidamente a las tendencias del mercado y optimizar la operativa en base a datos objetivos, maximizando así las oportunidades de crecimiento y éxito a largo plazo.
